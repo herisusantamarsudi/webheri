@@ -30,7 +30,7 @@ tbody.innerHTML += row;
 
 function ambilData(){
 
-fetch("api/endpoint.php")
+fetch("https://herisusanta.my.id/java/api/endpoint.php")
 .then(response => response.json())
 .then(data => {
 
