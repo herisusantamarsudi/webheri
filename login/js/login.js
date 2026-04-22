@@ -26,7 +26,7 @@ const pesan = document.getElementById("pesan");
 
 if(data.status === "success"){
 pesan.innerHTML = "Login berhasil!";
-window.location.href = "../index.html";
+window.location.href = "dashboard.html";
 }else{
 pesan.innerHTML = "Login gagal: " + data.message;
 }
