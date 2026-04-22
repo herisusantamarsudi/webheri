@@ -5,7 +5,7 @@ e.preventDefault();
 const username = document.getElementById("username").value;
 const password = document.getElementById("password").value;
 
-fetch("api/login.php", {
+fetch("https://herisusanta.my.id/java/api/login.php", {
 
 method: "POST",
 
