@@ -17,7 +17,7 @@ return;
 
 }
 
-fetch("api/register.php",{
+fetch("https://herisusanta.my.id/java/api/register.php",{
 
 method:"POST",
 
