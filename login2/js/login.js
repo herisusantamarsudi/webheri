@@ -1,38 +1,25 @@
-document.getElementById("loginForm").addEventListener("submit", function(e) {
+document.getElementById("loginForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
 
-e.preventDefault();
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-const username = document.getElementById("username").value;
-const password = document.getElementById("password").value;
+    const res = await fetch("https://herisusanta.my.id/javalogin/api/auth.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+    });
 
-fetch("https://herisusanta.my.id/java/api/login.php", {
+    const data = await res.json();
 
-method: "POST",
-
-headers: {
-"Content-Type": "application/json"
-},
-
-body: JSON.stringify({
-username: username,
-password: password
-})
-
-})
-.then(response => response.json())
-.then(data => {
-
-const pesan = document.getElementById("pesan");
-
-if(data.status === "success"){
-pesan.innerHTML = "Login berhasil!";
-window.location.href = "../index.html";
-}else{
-pesan.innerHTML = "Login gagal: " + data.message;
-window.location.href = "index.html";  
-}
-
-})
-.catch(error => console.log(error));
-
+    if (data.status === "success") {
+        // simpan username
+            localStorage.setItem("username", data.username);
+            window.location.href = "../index.html";
+            
+    } else {
+        document.getElementById("message").innerText = "Username / Password salah";alert("Login gagal");
+    }
 });

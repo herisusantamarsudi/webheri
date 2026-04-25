@@ -1,58 +1,22 @@
-document.getElementById("registerForm").addEventListener("submit", function(e){
+document.getElementById("registerForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
 
-e.preventDefault();
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-const username = document.getElementById("username").value;
-const email = document.getElementById("email").value;
-const password = document.getElementById("password").value;
-const confirmPassword = document.getElementById("confirmPassword").value;
-const level = document.getElementById("level").value;
+    const res = await fetch("https://herisusanta.my.id/javalogin/api/auth.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `action=register&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+    });
 
-const pesan = document.getElementById("pesan");
+    const data = await res.json();
 
-if(password !== confirmPassword){
-
-pesan.innerHTML = "Password tidak sama!";
-return;
-
-}
-
-fetch("https://herisusanta.my.id/java/api/register.php",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body: JSON.stringify({
-username:username,
-email:email,
-password:password,
-level:level
-})
-
-})
-
-.then(response => response.json())
-.then(data => {
-
-if(data.status === "success"){
-
-pesan.innerHTML = "Registrasi berhasil, silakan login";
-
-setTimeout(()=>{
-window.location.href = "index.html";
-},2000);
-
-}else{
-
-pesan.innerHTML = data.message;
-
-}
-
-})
-
-.catch(error => console.log(error));
-
+    if (data.status === "success") {
+        document.getElementById("message").innerText = "Registrasi berhasil, silakan login";
+    } else {
+        document.getElementById("message").innerText = data.message || "Gagal register";
+    }
 });
