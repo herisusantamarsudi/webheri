@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Landing Page</title>
+</head>
+<body>
+
+<h1>Selamat Datang</h1>
+
+<p id="userInfo">Loading...</p>
+
+<div id="authArea"></div>
+
+<script>
+async function checkLogin() {
+    const res = await fetch("https://herisusanta.my.id/javalogin/api/auth.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "action=check"
+
+    });
+
+    const data = await res.json();
+
+    if (data.status === "logged_in") {
+        document.getElementById("userInfo").innerText = "Halo, " + data.username;
+
+        document.getElementById("authArea").innerHTML = `
+            <form action="https://herisusanta.my.id/javalogin/api/auth.php" method="POST">
+                <input type="hidden" name="action" value="logout">
+                <button type="submit">Logout</button>
+            </form>
+        `;
+    } else {
+        document.getElementById("userInfo").innerText = "Belum login";
+
+        document.getElementById("authArea").innerHTML = `
+            <button onclick="goLogin()">Login</button>
+        `;
+    }
+}
+
+function goLogin() {
+    window.location.href = "login/index.html";
+}
+
+checkLogin();
+</script>
+
+</body>
+</html>
