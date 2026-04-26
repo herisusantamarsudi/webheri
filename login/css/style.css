@@ -154,6 +154,7 @@ button{
 	border:1px solid #b32929;
 }
 #message{
+	background: #ff4e4e;
     color: white;
     text-align: center;
     margin-top: 20px;
