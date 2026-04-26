@@ -20,7 +20,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
             window.location.href = "../index.html";
            } else {
     const alertBox = document.getElementById("alertBox");
-    alertBox.innerText = "Username / Password salah";
+    alertBox.innerText = "Username atau Password salah, silahkan coba lagi";
     alertBox.style.display = "block";
 
     setTimeout(() => {
