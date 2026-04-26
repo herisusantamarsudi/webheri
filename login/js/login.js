@@ -18,8 +18,16 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
         // simpan username
             localStorage.setItem("username", data.username);
             window.location.href = "../index.html";
-            
-    } else {
-        document.getElementById("message").innerText = "Username / Password salah";alert("Login gagal");
-    }
+           } else {
+    const alertBox = document.getElementById("alertBox");
+    alertBox.innerText = "Username / Password salah";
+    alertBox.style.display = "block";
+
+    setTimeout(() => {
+        alertBox.style.display = "none";
+    }, 3000);
+} 
+    // } else {
+    //     document.getElementById("message").innerText = "Username / Password salah";alert("Login gagal");
+    // }
 });
